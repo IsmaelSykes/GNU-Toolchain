@@ -44,6 +44,9 @@ blink.bin: blink.elf
 
 openocd -f board/st_nucleo_f4.cfg
 
+
+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
+
 */
 
 

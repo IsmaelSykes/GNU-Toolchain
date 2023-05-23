@@ -5,3 +5,4 @@
 uint32_t Prescaler(uint32_t value, uint32_t pres);
 
 #endif /* INC_MATH_LIB_H_ */
+
