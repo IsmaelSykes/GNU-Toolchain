@@ -29,28 +29,52 @@ int main(void)
 	debug_uart_init();
 	pa1_adc_init();
 	start_converstion();
-	char measure[8];
-	char message[] = "\r Hola STM32F401RE \r\n"; 
-	for(int i = 0; i<sizeof(message);i++)
-		uart_write(message[i]);
+	char measure[10];
+	float n1 = 27.2512;
+	float n2 = 25.2517;
+	float n3 = n1*n2;//637.62310144
 	
-	get_number(measure,sizeof(measure), "%.3f", 516.123);
-    message("\r measure: \r\n",9);
-    message(measure,8);
+	char m[] = "\r Hola STM32F401RE \r\n"; 
+	message(m,sizeof(m));
+
+	//for(int i = 0; i<sizeof(m);i++)
+	//	uart_write(m[i]);
+	
+	
+	get_number(measure,sizeof(measure), "%.6f", n3);
+    message("\r measure: ",sizeof("\r measure: "));
+    message(measure,10);
+    message("\r\n",sizeof("\r\n"));
+
+    float e1 = 12.231;
+    float e2 = 12.231;
+    float e3 = e1+e2 ;
+
+    get_number(measure,sizeof(measure), "%.6f", e3);
+    message("\r edad : ",sizeof("\r edad : "));
+    message(measure,10);
+    message("\r\n",sizeof("\r\n"));
+    float j = 0;
 	
 	while(1)
 	{
 		GPIOA->ODR ^= LED_PIN;
 		sensor_value =  adc_read();
-		
-		//printf("\r Sensor value : %d \r\n",(int)sensor_value);
-		for(int i =0;i<100000;i++){}
+		j += 0.002;
+		get_number(measure,sizeof(measure), "%.6f", j);
+		message("\r j : ",sizeof("\r j : "));
+		message(measure,10);
+		message("\r\n",sizeof("\r\n"));
+		for(int i =0;i<1500000;i++)
+		{
+
+		}
 
 	}
 
 }
 
-//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
+//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
 
 
 

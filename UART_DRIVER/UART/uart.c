@@ -11,7 +11,17 @@
 #define SR_TXE					(1U<<7)
 
 
-static void uart_set_baudrate(uint32_t periph_clk,uint32_t baudrate);
+
+static uint16_t compute_uart_bd(uint32_t periph_clk,uint32_t baudrate)
+{
+	return((periph_clk + (baudrate/2U))/baudrate);
+}
+
+static void uart_set_baudrate(uint32_t periph_clk,uint32_t baudrate)
+{
+	USART2->BRR = compute_uart_bd(periph_clk,baudrate);
+}
+
 
 void debug_uart_init(void)
 {
@@ -65,16 +75,7 @@ void message(char *buff, uint32_t length)
 
 {
 	for(int i =0; i< length-1; i++)
-		uart_write(*(buff++))
+		uart_write(*(buff++));
 }
 
 
-static uint16_t compute_uart_bd(uint32_t periph_clk,uint32_t baudrate)
-{
-	return((periph_clk + (baudrate/2U))/baudrate);
-}
-
-static void uart_set_baudrate(uint32_t periph_clk,uint32_t baudrate)
-{
-	USART2->BRR = compute_uart_bd(periph_clk,baudrate);
-}
